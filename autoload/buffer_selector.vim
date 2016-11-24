@@ -36,6 +36,18 @@ function buffer_selector#OpenBufferSelector()
     setlocal nonumber
 
     """ 選択したバッファに移動
-    map <buffer> <Return> ^viwy:bwipeout!<Return>:buffer <C-r>"<Return>
+    map <buffer> <Return> :call buffer_selector#OpenBuffer()<Return>
     map <buffer> q :bwipeout!<Return>
+endfunction
+
+function buffer_selector#OpenBuffer()
+    let buffer_no = buffer_selector#GetBufNo()
+    :bwipeout!
+    execute ":buffer " . buffer_no
+endfunction
+
+function buffer_selector#GetBufNo()
+    let line = getline(line('.'))
+    let splited_line = split(line, ' ', 0)
+    return get(splited_line, 0)
 endfunction
