@@ -28,6 +28,25 @@ Describe Test for buffer_selector
     call cursor(4, 1)
     let bufno = buffer_selector#GetBufNo()
     execute s:assert('bufno is# "119"')
+
+    """ 後片付け
+    normal ggVGd
+  End
+
+  It test_FitWinCol
+    let before_win_col = winheight('.')
+    let buffers_buffer =  '  1  h   "[無名]"                       行 0'
+        \ . "\n" . '  9  h   "[無名]"                       行 0'
+    put!=buffers_buffer
+    call buffer_selector#FitWinCol()
+    let after_win_col = winheight('.')
+
+    """ 最後に空行ができるので、put で挿入した行数 + 1 が FitWinCol 後の高さ
+    execute s:assert('after_win_col is# 3')
+
+    """ 後片付け
+    normal ggVGd
+    normal _
   End
 
   It Open selected buffer in window that calling OpenBufferSelector.
