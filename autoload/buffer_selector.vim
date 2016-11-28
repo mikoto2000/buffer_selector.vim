@@ -1,4 +1,7 @@
 function buffer_selector#OpenBufferSelector()
+    """ 呼び出し元のウィンドウ ID を記憶
+    let s:caller_window_id = win_getid()
+
     """ 変数 buffer_list に ``:ls`` の結果を格納
     let buffer_list=""
     redir => buffer_list
@@ -43,6 +46,11 @@ endfunction
 function buffer_selector#OpenBuffer()
     let buffer_no = buffer_selector#GetBufNo()
     :bwipeout!
+
+    """ 呼び出し元ウィンドウをアクティブにする
+    call win_gotoid(s:caller_window_id)
+
+    """ バッファを開く
     execute ":buffer " . buffer_no
 endfunction
 

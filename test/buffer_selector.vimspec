@@ -29,4 +29,13 @@ Describe Test for buffer_selector
     let bufno = buffer_selector#GetBufNo()
     execute s:assert('bufno is# "119"')
   End
+
+  It Open selected buffer in window that calling OpenBufferSelector.
+    split
+    let before_window_id = win_getid()
+    call buffer_selector#OpenBufferSelector()
+    call buffer_selector#OpenBuffer()
+    let after_window_id = win_getid()
+    execute s:assert('after_window_id is# before_window_id')
+  End
 End
