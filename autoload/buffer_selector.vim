@@ -22,11 +22,7 @@ function buffer_selector#OpenBufferSelector()
     normal gg"_dd
 
     """ ウィンドウサイズ調整
-    let current_win_height=winheight('%')
-    let line_num=line('$')
-    if current_win_height - line_num > 0
-        execute "normal z" . line_num . "\<Return>"
-    endif
+    call buffer_selector#FitWinCol()
 
     """ バッファリスト用バッファの設定
     setlocal noshowcmd
@@ -40,6 +36,11 @@ function buffer_selector#OpenBufferSelector()
 
     """ 選択したバッファに移動
     map <buffer> <Return> :call buffer_selector#OpenBuffer()<Return>
+
+    """ バッファ削除
+    map <buffer> d :call buffer_selector#DeleteBuffer()<Return>
+
+    """ バッファリストを閉じる
     map <buffer> q :bwipeout!<Return>
 endfunction
 
@@ -54,8 +55,28 @@ function buffer_selector#OpenBuffer()
     execute ":buffer " . buffer_no
 endfunction
 
+function buffer_selector#DeleteBuffer()
+    let buffer_no = buffer_selector#GetBufNo()
+    execute "bdelete!" . buffer_no
+    setlocal modifiable
+    .delete
+    setlocal nomodifiable
+
+    """ ウィンドウサイズ調整
+    call buffer_selector#FitWinCol()
+endfunction
+
 function buffer_selector#GetBufNo()
     let line = getline(line('.'))
     let splited_line = split(line, ' ', 0)
     return get(splited_line, 0)
+endfunction
+
+""" ウィンドウサイズ調整
+function buffer_selector#FitWinCol()
+    let current_win_height=winheight('%')
+    let line_num=line('$')
+    if current_win_height - line_num > 0
+        execute "normal z" . line_num . "\<Return>"
+    endif
 endfunction
