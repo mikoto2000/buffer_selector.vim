@@ -1,0 +1,32 @@
+Describe Test for buffer_selector
+  Before all
+    let V = vital#of('vital')
+    let PowerAssert = V.import('Vim.PowerAssert')
+    let s:assert = PowerAssert.assert
+  End
+
+  It test_GetBufNo
+    let buffers_buffer =  '  1  h   "[無名]"                       行 0'
+        \ . "\n" . '  9  h   "[無名]"                       行 0'
+        \ . "\n" . ' 10  h   "[無名]"                       行 0'
+        \ . "\n" . '119 %a   "[無名]"                       行 1'
+
+    put!=buffers_buffer
+
+    call cursor(1, 1)
+    let bufno = buffer_selector#GetBufNo()
+    execute s:assert('bufno is# "1"')
+
+    call cursor(2, 1)
+    let bufno = buffer_selector#GetBufNo()
+    execute s:assert('bufno is# "9"')
+
+    call cursor(3, 1)
+    let bufno = buffer_selector#GetBufNo()
+    execute s:assert('bufno is# "10"')
+
+    call cursor(4, 1)
+    let bufno = buffer_selector#GetBufNo()
+    execute s:assert('bufno is# "119"')
+  End
+End
