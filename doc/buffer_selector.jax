@@ -22,6 +22,20 @@
     noremap <Leader>l <Esc>:call buffer_selector#OpenBufferSelector()<Enter>
 <
 
+`buffer_selector#OpenBufferSelector()` を呼ぶと、バッファーリストが表示されま
+す。
+表示されたバッファーリスト内では、下記の操作が行えます。
+
+<Return>                                         *<Return>*
+			カーソルがある行のバッファーを開きます。
+
+|d|                                                *d*
+			カーソルがある行のバッファーを削除します。
+
+|q|                                                *q*
+			バッファーリストを閉じ、元居たバッファーに戻ります。
+
+
 ==============================================================================
 ライセンス                                     *buffer_selector-license*
 
