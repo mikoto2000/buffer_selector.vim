@@ -57,4 +57,13 @@ Describe Test for buffer_selector
     let after_window_id = win_getid()
     execute s:assert('after_window_id is# before_window_id')
   End
+
+  It When the buffer selector is closed, it returns to the buffer that called OpenBufferSelector.
+    split
+    let before_window_id = win_getid()
+    call buffer_selector#OpenBufferSelector()
+    call buffer_selector#CloseBufferSelector()
+    let after_window_id = win_getid()
+    execute s:assert('after_window_id is# before_window_id')
+  End
 End

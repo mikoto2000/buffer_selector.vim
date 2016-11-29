@@ -41,7 +41,15 @@ function buffer_selector#OpenBufferSelector()
     map <buffer> d :call buffer_selector#DeleteBuffer()<Return>
 
     """ バッファリストを閉じる
-    map <buffer> q :bwipeout!<Return>
+    map <buffer> q :call buffer_selector#CloseBufferSelector()<Return>
+endfunction
+
+function buffer_selector#CloseBufferSelector()
+    """ バッファリストを閉じる
+    :bwipeout!
+
+    """ 呼び出し元ウィンドウをアクティブにする
+    call win_gotoid(s:caller_window_id)
 endfunction
 
 function buffer_selector#OpenBuffer()
