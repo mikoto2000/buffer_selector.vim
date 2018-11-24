@@ -1,4 +1,4 @@
-function buffer_selector#OpenBufferSelector()
+function buffer_selector#OpenBufferSelector() abort
     """ 呼び出し元のウィンドウ ID を記憶
     let s:caller_window_id = win_getid()
 
@@ -44,7 +44,7 @@ function buffer_selector#OpenBufferSelector()
     map <buffer> q :call buffer_selector#CloseBufferSelector()<Return>
 endfunction
 
-function buffer_selector#CloseBufferSelector()
+function buffer_selector#CloseBufferSelector() abort
     """ バッファリストを閉じる
     :bwipeout!
 
@@ -52,7 +52,7 @@ function buffer_selector#CloseBufferSelector()
     call win_gotoid(s:caller_window_id)
 endfunction
 
-function buffer_selector#OpenBuffer()
+function buffer_selector#OpenBuffer() abort
     let buffer_no = buffer_selector#GetBufNo()
     :bwipeout!
 
@@ -63,7 +63,7 @@ function buffer_selector#OpenBuffer()
     execute ":buffer " . buffer_no
 endfunction
 
-function buffer_selector#DeleteBuffer()
+function buffer_selector#DeleteBuffer() abort
     let buffer_no = buffer_selector#GetBufNo()
     execute "bdelete!" . buffer_no
     setlocal modifiable
@@ -74,14 +74,14 @@ function buffer_selector#DeleteBuffer()
     call buffer_selector#FitWinCol()
 endfunction
 
-function buffer_selector#GetBufNo()
+function buffer_selector#GetBufNo() abort
     let line = getline(line('.'))
     let splited_line = split(line, ' ', 0)
     return get(splited_line, 0)
 endfunction
 
 """ ウィンドウサイズ調整
-function buffer_selector#FitWinCol()
+function buffer_selector#FitWinCol() abort
     let current_win_height=winheight('%')
     let line_num=line('$')
     if current_win_height - line_num > 0
