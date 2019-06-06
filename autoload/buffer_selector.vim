@@ -67,7 +67,7 @@ function buffer_selector#DeleteBuffer() abort
     let buffer_no = buffer_selector#GetBufNo()
     execute "bdelete!" . buffer_no
     setlocal modifiable
-    .delete
+    .delete_
     setlocal nomodifiable
 
     """ ウィンドウサイズ調整
