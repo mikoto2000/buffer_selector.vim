@@ -3,6 +3,13 @@ buffer_selector.vim
 
 シンプルで簡単に使えるバッファーセレクターです。
 
+Requirements:
+-------------
+
+- Version: Vim9 以降
+    - ※ Vim8 を利用している場合には、タグ `vim8script` のソースを利用してください
+
+
 Usage:
 ------
 
