@@ -71,7 +71,7 @@ export def DeleteBuffer()
     const buffer_no = GetBufNo()
     execute "bdelete!" .. buffer_no
     setlocal modifiable
-    .delete_
+    delete
     setlocal nomodifiable
 
     ### ウィンドウサイズ調整
