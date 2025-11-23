@@ -1,4 +1,7 @@
 function buffer_selector#OpenBufferSelector() abort
+    """ 現在のウィンドウの位置を保存
+    let s:restore_window_pos_cmd = winrestcmd()
+
     """ 呼び出し元のウィンドウ ID を記憶
     let s:caller_window_id = win_getid()
 
@@ -48,6 +51,9 @@ function buffer_selector#CloseBufferSelector() abort
     """ バッファリストを閉じる
     :bwipeout!
 
+    """ ウィンドウの位置を復元
+    execute s:restore_window_pos_cmd
+
     """ 呼び出し元ウィンドウをアクティブにする
     call win_gotoid(s:caller_window_id)
 endfunction
@@ -55,6 +61,9 @@ endfunction
 function buffer_selector#OpenBuffer() abort
     let buffer_no = buffer_selector#GetBufNo()
     :bwipeout!
+
+    """ ウィンドウの位置を復元
+    execute s:restore_window_pos_cmd
 
     """ 呼び出し元ウィンドウをアクティブにする
     call win_gotoid(s:caller_window_id)
